@@ -4,7 +4,7 @@ import requests
 
 
 class GetResponseConnector(object):
-    token = ""
+    token = "b60399e794d52b82957dd62a4fa4c2b9"  # Some dead test account
 
     def get(self, path):
         """
