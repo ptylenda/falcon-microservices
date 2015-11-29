@@ -10,6 +10,17 @@ from .connector import GetResponseConnectorAsync
 from .handler import GetResponseApiHandler
 
 
+class CampaignsHandler(GetResponseApiHandler):
+    def __init__(self, application, request, **kwargs):
+        super().__init__(path="/newsletters",
+                         connector=GetResponseConnectorAsync(),
+                         mapper_function=mapper.json_newsletter_to_campaign,
+                         max_clients=5,
+                         application=application,
+                         request=request,
+                         **kwargs)
+
+
 class ListsHandler(GetResponseApiHandler):
     def __init__(self, application, request, **kwargs):
         super().__init__(path="/campaigns",
@@ -33,6 +44,7 @@ class MembersHandler(GetResponseApiHandler):
 
 
 app = tornado.web.Application([
+    (r"/campaigns", CampaignsHandler),
     (r"/lists", ListsHandler),
     (r"/members", MembersHandler)
 ])
